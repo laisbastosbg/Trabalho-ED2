@@ -147,4 +147,12 @@ void copyList(List *newList, List *oldList) {
   }
 }
 
+void clearList(List *list) {
+  Node *tmp = list->head;
+  
+  while(tmp) {
+    pop(list);
+    tmp = tmp->next;
+  }
+}
 #endif

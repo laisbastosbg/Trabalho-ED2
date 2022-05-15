@@ -32,16 +32,15 @@ void multiply(List *list1, List *list2) {
   Node *lowerNumber = list2->head;
 
   List *finalResult = createList();
-  Node *finalResultTmp = finalResult->head;
-  List *resultList = createList();
   List *resultRemaining = createList();
 
   while (lowerNumber) {
-  Node *upperNumber = list1->head;
+    Node *upperNumber = list1->head;
     printf("lowerNumber: %d\n", lowerNumber->value);
     List *remaining = createList();
     Node *remainingTmp = remaining->head;
     push(remaining, 0);
+    List *resultList = createList();
 
     while (upperNumber) {
       int a = upperNumber->value;
@@ -65,10 +64,10 @@ void multiply(List *list1, List *list2) {
       remainingTmp = remainingTmp->next;
       upperNumber = upperNumber->next;
     }
-      printf("c = %d\n", remaining->tail->value);
+    printf("c = %d\n", remaining->tail->value);
 
     /////
-    if(remainingTmp->next) {
+    if (remainingTmp->next) {
       push(resultList, remainingTmp->next->value);
     }
     /////
@@ -78,16 +77,32 @@ void multiply(List *list1, List *list2) {
     printf("------\n");
     lowerNumber = lowerNumber->next;
 
-    // if(finalResult->length == 0) {
-    //   copyList(finalResult, resultList);
-    // } else {
-    //   while(finalResultTmp->next) {
-    //     finalResultTmp = finalResultTmp->next;
+    Node *resultListTmp = resultList->head;
+  Node *finalResultTmp = finalResult->head;
+    
+    if (finalResult->length == 0) {
+      copyList(finalResult, resultList);
+    } else {
+      while (finalResultTmp->next) {
+        printf("######");
+        printf("finalResultTmp->value: %d\n", finalResultTmp->value);
+        finalResultTmp = finalResultTmp->next;
 
-    //     printf("finalResultTmp: %d\n", finalResultTmp->value);
-    //   }
-    // }
+        int resultSum = finalResultTmp->value + resultListTmp->value;
+        printf("finalResultTmp->value: %d\n", finalResultTmp->value);
+        printf("resultListTmp->value: %d\n", resultListTmp->value);
+        printf("resultSum: %d\n", resultSum);
+        resultListTmp = resultListTmp->next;
 
-    // printReverse(finalResult);
+        int rsLastDigits = resultSum % 100;
+
+        finalResultTmp->value = rsLastDigits;
+        printf("finalResultTmp: %d\n", finalResultTmp->value);
+      }
+    }
+
+    printReverse(finalResult);
+
+    // printf("limpando aq: ");
   }
 }
