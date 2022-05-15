@@ -138,4 +138,13 @@ void storeInputInList(List *list, char *input) {
   // printf("\n");
 }
 
+void copyList(List *newList, List *oldList) {
+  Node *tmp = oldList->head;
+  
+  while(tmp) {
+    push(newList, tmp->value);
+    tmp = tmp->next;
+  }
+}
+
 #endif
