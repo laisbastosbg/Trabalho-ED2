@@ -1,1 +1,1 @@
-main.o main.d : main.c list.h
+main.o main.d : main.c list.h utils.h

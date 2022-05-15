@@ -1,9 +1,13 @@
+#ifndef HEADER_FILE
+#define HEADER_FILE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 typedef struct Node {
   int value;
+  int digitsQuantity;
   struct Node *next;
   struct Node *previous;
 } Node;
@@ -106,35 +110,25 @@ void printReverse(List *list) {
   printf("\n");
 }
 
-// void storeInputInList(List *list, int entrada) {
-//   int digits = entrada;
-
-//   while (digits) {
-//     push(list, digits % 100);
-//     digits = digits / 100;
-//   }
-//   printf("\n");
-// }
-
 void storeInputInList(List *list, char *input) {
   char *digits = input;
   int inputLength = strlen(digits);
 
   // inputLength - 3 para ignorar o \0 do final da string
-  for(int i = inputLength - 3; i >= 0; i = i-2) {
+  for (int i = inputLength - 3; i >= 0; i = i - 2) {
     char lastDigits[2];
-   
-      strncpy(lastDigits, digits+i, 2);
+
+    strncpy(lastDigits, digits + i, 2);
 
     int intLastDigits = atoi(lastDigits);
     push(list, intLastDigits);
     // printf("%d ", intLastDigits);
   }
 
-  if(inputLength % 2 == 0 ) {
+  if (inputLength % 2 == 0) {
     char lastDigits[2];
-   
-      strncpy(lastDigits, digits, 1);
+
+    strncpy(lastDigits, digits, 1);
 
     int intLastDigits = atoi(lastDigits);
     push(list, intLastDigits);
@@ -144,33 +138,4 @@ void storeInputInList(List *list, char *input) {
   // printf("\n");
 }
 
-List *multiply(List *list1, List *list2){
-  Node *upperNumber = list1->tail;
-  Node *lowerNumber = list2->tail;
-
-  List *resultList = createList();
-  List *remaining = createList();
-  while(lowerNumber->previous) {
-    
-    while(upperNumber->previous) {
-      int a = upperNumber->value;
-      int b = lowerNumber->value;
-      int result = a * b;
-
-      int lastTwoDigits = result % 100;
-      printf("%d\n", lastTwoDigits);
-      int remainingDigits = result / 100;
-      printf("%d\n", remainingDigits);
-
-      push(remaining, remainingDigits);
-
-      push(resultList, lastTwoDigits);
-      upperNumber = upperNumber->previous;
-    }
-    lowerNumber = lowerNumber->previous;
-  }
-
-  print(remaining);
-
-  return resultList;
-}
+#endif

@@ -3,6 +3,16 @@
 #include <string.h>
 
 #include "list.h"
+#include "utils.h"
+
+char *readInput() {
+  char *input;
+  size_t length = 0;
+  ssize_t read;
+
+  read = getline(&input, &length, stdin);
+  return input;
+}
 
 int main(void) {
   List *list1 = createList();
@@ -10,22 +20,20 @@ int main(void) {
 
   // lê entrada
   char *input;
-  size_t length = 0;
-  ssize_t read;
-
-  printf("enter number: ");
-  read = getline(&input, &length, stdin);
   
+  printf("enter first number: ");
+  input = readInput();
   storeInputInList(list1, input);
   printReverse(list1);
 
-  // printf("enter number: ");
-  // scanf("%d", &input);
-  // storeInputInList(list2, input);
-  // printReverse(list2);
+  printf("enter second number: ");
+  input = readInput();
+  
+  storeInputInList(list2, input);
+  printReverse(list1);
+  printReverse(list2);
 
-  // List *result = multiply(list1, list2);
-  // print(result);
-// printf("%d", list->length);
+  multiply(list1, list2);
+
   return 0;
 }
