@@ -79,26 +79,40 @@ void multiply(List *list1, List *list2) {
 
     Node *resultListTmp = resultList->head;
   Node *finalResultTmp = finalResult->head;
+    List *finalRemaining = createList();
+    Node *finalRemainingTmp = remaining->head;
     
     if (finalResult->length == 0) {
       copyList(finalResult, resultList);
     } else {
       while (finalResultTmp->next) {
-        printf("######");
-        printf("finalResultTmp->value: %d\n", finalResultTmp->value);
+        // printf("######\n");
+        // printf("finalResultTmp->value: %d\n", finalResultTmp->value);
         finalResultTmp = finalResultTmp->next;
 
-        int resultSum = finalResultTmp->value + resultListTmp->value;
-        printf("finalResultTmp->value: %d\n", finalResultTmp->value);
-        printf("resultListTmp->value: %d\n", resultListTmp->value);
-        printf("resultSum: %d\n", resultSum);
+        int resultSum = finalResultTmp->value + resultListTmp->value + finalRemaining->tail->value;
+        // printf("finalResultTmp->value: %d\n", finalResultTmp->value);
+        // printf("-----> resultSum: %d\n", resultSum);
         resultListTmp = resultListTmp->next;
+        printf("----> resultListTmp->value: %d\n", resultListTmp->value);
 
         int rsLastDigits = resultSum % 100;
+        int rsRemainingDigits = resultSum / 100;
+        printf("rsRemainingDigits: %d\n", rsRemainingDigits);
+
+      if (rsRemainingDigits > 0) {
+        push(finalRemaining, rsRemainingDigits);
+      } else {
+        push(finalRemaining, 0);
+      }
 
         finalResultTmp->value = rsLastDigits;
-        printf("finalResultTmp: %d\n", finalResultTmp->value);
+        // printf("finalResultTmp: %d\n", finalResultTmp->value);
       }
+
+      // if (resultListTmp) {
+      // push(finalResult, resultListTmp->value);
+      // }
     }
 
     printReverse(finalResult);
