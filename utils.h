@@ -34,6 +34,8 @@ void multiply(List *list1, List *list2) {
   List *finalResult = createList();
   List *resultRemaining = createList();
 
+  
+int increaseResultListSizeBy = 0;
   while (lowerNumber) {
     Node *upperNumber = list1->head;
     printf("lowerNumber: %d\n", lowerNumber->value);
@@ -41,7 +43,12 @@ void multiply(List *list1, List *list2) {
     Node *remainingTmp = remaining->head;
     push(remaining, 0);
     List *resultList = createList();
-
+    
+  for(int i = 0; i < increaseResultListSizeBy; i++) {
+      push(resultList, 0);
+    }
+increaseResultListSizeBy++;
+    
     while (upperNumber) {
       int a = upperNumber->value;
       int b = lowerNumber->value;
@@ -72,7 +79,9 @@ void multiply(List *list1, List *list2) {
     }
     /////
     printf("------\n");
+    printf("remaining: ");
     printReverse(remaining);
+    printf("resultList: ");
     printReverse(resultList);
     printf("------\n");
     lowerNumber = lowerNumber->next;
@@ -84,17 +93,26 @@ void multiply(List *list1, List *list2) {
     
     if (finalResult->length == 0) {
       copyList(finalResult, resultList);
+      printf("finalResult: ");
+    printReverse(finalResult);
     } else {
-      while (finalResultTmp->next) {
+      do {
+      printf("finalResult: ");
+    printReverse(finalResult);
         // printf("######\n");
         // printf("finalResultTmp->value: %d\n", finalResultTmp->value);
-        finalResultTmp = finalResultTmp->next;
+        int x = 0;
+        if(finalResultTmp) {x = finalResultTmp->value;
+        }
+        int y = resultListTmp->value;
+        resultListTmp = resultListTmp->next;
+        int z = finalRemaining->tail->value;
 
-        int resultSum = finalResultTmp->value + resultListTmp->value + finalRemaining->tail->value;
+        int resultSum = x + y + z;
+        printf("%d + %d + %d = %d\n", x, y, z, resultSum);
         // printf("finalResultTmp->value: %d\n", finalResultTmp->value);
         // printf("-----> resultSum: %d\n", resultSum);
-        resultListTmp = resultListTmp->next;
-        printf("----> resultListTmp->value: %d\n", resultListTmp->value);
+        // printf("----> resultListTmp->value: %d\n", resultListTmp->value);
 
         int rsLastDigits = resultSum % 100;
         int rsRemainingDigits = resultSum / 100;
@@ -105,10 +123,14 @@ void multiply(List *list1, List *list2) {
       } else {
         push(finalRemaining, 0);
       }
-
+if(finalResultTmp) {
         finalResultTmp->value = rsLastDigits;
+        finalResultTmp = finalResultTmp->next;
+} else {
+  push(finalResult, rsLastDigits);
+}
         // printf("finalResultTmp: %d\n", finalResultTmp->value);
-      }
+      } while (resultListTmp);
 
       // if (resultListTmp) {
       // push(finalResult, resultListTmp->value);

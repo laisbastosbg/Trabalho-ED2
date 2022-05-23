@@ -89,7 +89,7 @@ void print(List *list) {
   }
   Node *tmp = list->head;
   while (tmp) {
-    printf("%d ", tmp->value);
+    printf("02%d ", tmp->value);
     tmp = tmp->next;
   }
 
@@ -103,7 +103,7 @@ void printReverse(List *list) {
   }
   Node *tmp = list->tail;
   while (tmp->previous) {
-    printf("%d ", tmp->value);
+    printf("%02d ", tmp->value);
     tmp = tmp->previous;
   }
 
