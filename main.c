@@ -20,20 +20,18 @@ int main(void) {
 
   // lê entrada
   char *input;
-  
+
   printf("enter first number: ");
   input = readInput();
   storeInputInList(list1, input);
-  printReverse(list1);
 
   printf("enter second number: ");
   input = readInput();
-  
+
   storeInputInList(list2, input);
-  printReverse(list1);
-  printReverse(list2);
 
-  multiply(list1, list2);
+  List *finalResult = multiply(list1, list2);
 
+  printReverse(finalResult);
   return 0;
 }
